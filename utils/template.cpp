@@ -7,14 +7,18 @@ int main() {
     std::string filePath {"input.txt"};
     std::ifstream file(filePath);
 
-    if (file.is_open()) {
+    if (file.is_open()) 
+    {
         std::string line {};
-        while (std::getline(file, line)) {
+        while (std::getline(file, line))
+        {
             std::cout << line << "\n";
         }
 
         file.close();
-    } else {
+    } 
+    else 
+    {
         std::cerr << "Error: Unable to open file " << filePath << "\n";
     }
 

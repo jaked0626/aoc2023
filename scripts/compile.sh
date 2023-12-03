@@ -15,15 +15,15 @@ fi
 
 if [ -f "./day$day/task1.cpp" ]
 then
-  g++ --std=c++17 -o ./day$day/task1 ./day$day/task1.cpp
-  exe_file="day$day/task1"
+  g++ --std=c++17 -o ./day$day/task1.out ./day$day/task1.cpp
+  exe_file="day$day/task1.out"
   ./"$exe_file"
 fi
 
 if [ -f "./day$day/task2.cpp" ]
 then
-  g++ --std=c++17 -o ./day$day/task2 ./day$day/task2.cpp
-  exe_file="day$day/task2"
+  g++ --std=c++17 -o ./day$day/task2.out ./day$day/task2.cpp
+  exe_file="day$day/task2.out"
   ./"$exe_file"
 fi
 

@@ -4,19 +4,28 @@
 #include <vector>
 
 
-std::vector<std::string> splitString (std::string inputString, std::string delimiter)
-{
-    std::vector<std::string> splitArray {};
+std::vector<std::string> splitString(const std::string &inputString, char delimiter) {
+    std::vector<std::string> tokens;
+    std::size_t start {0};
+    std::size_t end { inputString.find(delimiter, start) };
 
-    size_t pos = 0;
-    std::string splitToken {};
-    while ((pos = inputString.find(delimiter)) != std::string::npos) {
-        splitToken = inputString.substr(0, pos);
-        splitArray.push_back(splitToken);
-        inputString.erase(0, pos + delimiter.length());
+    while (end != std::string::npos) 
+    {
+        // avoiding empty strings
+        if (end != start) 
+        {
+          tokens.push_back(inputString.substr(start, end - start));
+        }
+        start = end + 1;
+        end = inputString.find(delimiter, start);
     }
 
-    return splitArray;
+    // push last token 
+    if (end != start) 
+    {
+       tokens.push_back(inputString.substr(start));
+    }
+    return tokens;
 }
 
 int isPossible(std::string line, std::unordered_map<std::string, int> balls) 
@@ -25,14 +34,14 @@ int isPossible(std::string line, std::unordered_map<std::string, int> balls)
     using std::string; 
     using std::stoi;
     
-    vector<string> gameAndContent { splitString(line, ":") };
+    vector<string> gameAndContent { splitString(line, ':') };
     string game { gameAndContent[0] };
     string content { gameAndContent[1] };
 
     std::cout << game << "\n";
     std::cout << content << "\n";
 
-    string gameNumber { splitString(game, " ")[1] }; 
+    string gameNumber { splitString(game, ' ')[1] }; 
     // int gameNumber { stoi(splitString(game, " ")[1]) }; 
 
     // std::cout << gameNumber << "\n";

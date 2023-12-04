@@ -38,15 +38,28 @@ int isPossible(std::string line, std::unordered_map<std::string, int> balls)
     string game { gameAndContent[0] };
     string content { gameAndContent[1] };
 
-    std::cout << game << "\n";
-    std::cout << content << "\n";
+    // std::cout << game << "\n";
+    // std::cout << content << "\n";
+\
+    int gameScore { stoi(splitString(game, ' ')[1]) };
+    vector<string> gameResults { splitString(content, ' ') };
 
-    string gameNumber { splitString(game, ' ')[1] }; 
-    // int gameNumber { stoi(splitString(game, " ")[1]) }; 
+    for (size_t i = 0; i < gameResults.size(); i += 2)
+    {   
+        int num { stoi(gameResults[i]) };
+        string color { gameResults[i + 1] };
 
-    // std::cout << gameNumber << "\n";
+        // process trailing , or ;
+        color.erase(color.find_last_not_of(" ,;") + 1);
 
-    return 0;
+        if (stoi(gameResults[i]) > balls[color])
+        {
+            gameScore = 0;
+            break;
+        }
+    }
+
+    return gameScore;
 }
 
 
@@ -57,8 +70,8 @@ int main()
 
     std::unordered_map<std::string, int> balls {};
     balls["red"] = 12;
-    balls["blue"] = 13;
-    balls["green"] = 14;
+    balls["blue"] = 14;
+    balls["green"] = 13;
 
     int sum {};
 
@@ -77,5 +90,7 @@ int main()
         std::cerr << "Error: Unable to open file " << filePath << "\n";
     }
 
-    return sum;
+    std::cout << sum << "\n";
+
+    return 0;
 }

@@ -3,7 +3,8 @@
 #include <string>
 
 
-int main() {
+int main() 
+{
     std::string filePath {"input.txt"};
     std::ifstream file(filePath);
 

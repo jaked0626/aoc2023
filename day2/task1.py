@@ -1,6 +1,5 @@
 
 def is_possible(line: str, balls: dict[str, int]) -> int:
-    balls_max = {}
     game, rounds = line.split(":")
     score = int(game.split()[-1])
     rounds = rounds.split(";")

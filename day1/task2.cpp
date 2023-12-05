@@ -1,3 +1,7 @@
+/* AOC 2023 DAY 1 TASK 1
+Fuck mee
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>

@@ -1,4 +1,4 @@
-/* AOC 2023 DAY X TASK X
+/* AOC 2023 DAY 3 TASK 2
 
 Author: Jake Underland
 */
@@ -10,7 +10,7 @@ Author: Jake Underland
 
 int main() 
 {
-    std::string filePath {"input.txt"};
+    std::string filePath {"./day3/input.txt"};
     std::ifstream file(filePath);
 
     if (file.is_open()) 
@@ -18,7 +18,7 @@ int main()
         std::string line {};
         while (std::getline(file, line))
         {
-            std::cout << line << "\n";
+            // std::cout << line << "\n";
         }
 
         file.close();

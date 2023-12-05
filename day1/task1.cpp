@@ -1,3 +1,7 @@
+/* AOC 2023 DAY 1 TASK 1
+Got pretty creative with the handling of char -> int conversion. 
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>

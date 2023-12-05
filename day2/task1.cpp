@@ -1,3 +1,13 @@
+/* AOC 2023 DAY 2 TASK 1
+This task was interesting as it taught me how to process strings in cpp. 
+Coming from Python, it's easy to take simple functions with common use cases 
+like split or strip for granted, but nooooooo god forbid it be that simple! 
+managed to figure out how to use find to iterate through a string, instead of 
+relying on regex like last round. Also learned that in cpp, ' and " mean different 
+things, and char demands to be in '. 
+*/
+
+
 #include <iostream>
 #include <fstream>
 #include <string>

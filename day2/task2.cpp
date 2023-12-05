@@ -1,3 +1,10 @@
+/* AOC 2023 DAY 2 TASK 2
+Thought this would be easier than the last task but still had some hiccups. 
+Iterating through unordered maps is easy circa c++17. 
+Getting a value and making sure it is not null is slightly verbose but I don't 
+mind the extra care. 
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>

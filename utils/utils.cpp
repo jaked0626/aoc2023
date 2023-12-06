@@ -36,3 +36,16 @@ void printStringVector(std::vector<std::string> vec)
     }
     std::cout << "\n";
 }
+
+// template <typename K, typename V>
+// void initializeMapKey(std::map<K, V>& myMap, const K& key, const V& defaultValue) 
+// {
+//     // Check if the key exists in the map
+//     auto it { myMap.find(key) };
+
+//     // If the key does not exist, initialize it with the default value
+//     if (it == myMap.end()) 
+//     {
+//         myMap[key] = defaultValue;
+//     }
+// }

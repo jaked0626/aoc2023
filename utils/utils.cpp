@@ -37,15 +37,18 @@ void printStringVector(std::vector<std::string> vec)
     std::cout << "\n";
 }
 
-// template <typename K, typename V>
-// void initializeMapKey(std::map<K, V>& myMap, const K& key, const V& defaultValue) 
-// {
-//     // Check if the key exists in the map
-//     auto it { myMap.find(key) };
+template <typename K, typename V>
+void initializeMapKeyIfEmpty(std::unordered_map<K, V>& myMap, const K& key, const V& defaultValue) 
+{
+    // Check if the key exists in the map
+    auto target { myMap.find(key) };
 
-//     // If the key does not exist, initialize it with the default value
-//     if (it == myMap.end()) 
-//     {
-//         myMap[key] = defaultValue;
-//     }
-// }
+    // If the key does not exist, initialize it with the default value
+    if (target == myMap.end()) 
+    {
+        myMap[key] = defaultValue;
+    }
+}
+
+template void initializeMapKeyIfEmpty<std::string, int>(std::unordered_map<std::string, int>&, const std::string&, const int&);
+template void initializeMapKeyIfEmpty<int, int>(std::unordered_map<int, int>&, const int&, const int&);

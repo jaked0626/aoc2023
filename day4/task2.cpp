@@ -83,19 +83,6 @@ int getScore(std::string line)
     return score;
 }
 
-template <typename K, typename V>
-void initializeMapKeyIfEmpty(std::unordered_map<K, V>& myMap, const K& key, const V& defaultValue) 
-{
-    // Check if the key exists in the map
-    auto target { myMap.find(key) };
-
-    // If the key does not exist, initialize it with the default value
-    if (target == myMap.end()) 
-    {
-        myMap[key] = defaultValue;
-    }
-}
-
 
 
 /*
@@ -130,8 +117,6 @@ int main()
             initializeMapKeyIfEmpty(cardNumbers, currentCard, 1);
 
             int numMatches { getScore(line) };
-
-            std::cout << currentCard << " " << numMatches << "\n";
 
             for (int increasedCard = currentCard + 1; increasedCard < currentCard + numMatches + 1; ++increasedCard)
             {

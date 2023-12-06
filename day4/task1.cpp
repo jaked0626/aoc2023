@@ -12,34 +12,8 @@ Author: Jake Underland
 #include <set>
 #include <cmath>
 
-std::vector<std::string> splitString(const std::string &inputString, char delimiter) {
-    std::vector<std::string> tokens;
-    std::size_t start {0};
-    std::size_t end { inputString.find(delimiter, start) };
+#include "utils.h"
 
-    while (end != std::string::npos) 
-    {
-        // avoiding empty strings
-        if (end != start) 
-        {
-          tokens.push_back(inputString.substr(start, end - start));
-        }
-        start = end + 1;
-        end = inputString.find(delimiter, start);
-    }
-
-    // push last token 
-    if (end != start) 
-    {
-       tokens.push_back(inputString.substr(start));
-    }
-    return tokens;
-}
-
-int getScore(std::string line) 
-{
-    return 0;
-}
 
 std::string removeCardTitle(std::string line) 
 {
@@ -84,16 +58,33 @@ std::vector<std::string> getCardsArray(std::string cardsString)
     return cardsArray;
 }
 
-void printStringVector(std::vector<std::string> vec)
+
+
+int countCommonCards(std::set<std::string> winningCards, std::vector<std::string> userCards) 
 {
-    for (const auto& s: vec)
+    int common {0};
+    for (const auto& userCard: userCards)
     {
-        std::cout << s <<", ";
+        if (winningCards.count(userCard))
+        {
+            common += 1;
+        }
     }
-    std::cout << "\n";
+    return common;
 }
 
-int main() 
+int getScore(std::string line)
+{
+    line = removeCardTitle(line);
+    std::vector<std::string> splitCards { splitWinningAndUserCards(line) };
+    std::set<std::string> winningCards { getCardsSet(splitCards[0]) };
+    std::vector<std::string> userCards { getCardsArray(splitCards[1]) };
+    int score { countCommonCards(winningCards, userCards) };
+
+    return score;
+}
+
+int main()
 {
     using std::string;
 
@@ -107,29 +98,11 @@ int main()
         string line {};
         while (std::getline(file, line))
         {
-            std::vector<string> splitCards {};
-            std::set<string> winningCards {};
-            std::vector<string> userCards {};
-            int pow {0};
-
-            line = removeCardTitle(line);
-            splitCards = splitWinningAndUserCards(line);
-            winningCards = getCardsSet(splitCards[0]);
-            userCards = getCardsArray(splitCards[1]);
-            
-            for (const auto& userCard: userCards)
-            {
-                if (winningCards.count(userCard))
-                {
-                    std::cout << userCard << "; ";
-                    pow += 1;
-                }
-            }
+            int pow { getScore(line) };
             if (pow > 0) 
             {
                 sum += std::pow(2, pow - 1);
             }
-            pow = 0;
         }
 
         file.close();

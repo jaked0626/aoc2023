@@ -1,6 +1,8 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+
+std::string readFileIntoString(const std::ifstream&);
 std::vector<std::string> splitString(const std::string&, char);
 void printStringVector(std::vector<std::string>);
 void printStringVector(std::vector<std::string>);

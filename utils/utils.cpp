@@ -1,8 +1,23 @@
-#include<iostream>
-#include<string>
-#include<vector>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <sstream>
 #include "utils.h"
 
+// must be reference, ifstream does not have a copy constructor (deleted)
+std::string readFileIntoString(const std::ifstream& file) 
+{
+    std::string fileContents {};
+    if (file.is_open()) 
+    {
+        std::stringstream buffer;
+        buffer << file.rdbuf();
+        fileContents = buffer.str();
+    }
+
+    return fileContents;
+}
 
 std::vector<std::string> splitString(const std::string &inputString, char delimiter) {
     std::vector<std::string> tokens;

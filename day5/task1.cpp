@@ -28,29 +28,16 @@ std::string extractStringMap(std::string inputString, std::string mapName)
         return "error: could not find mapName";
     }
 
-    size_t stop { inputString.find("\n\n", start )};
+    size_t stop { inputString.find("\n\n", start ) };
     if (stop == std::string::npos)
     {
-        return "error: could not find end of map";
+        stop = inputString.size() - 1;
     }
 
-    return inputString.substr(start, stop + 1);
+    start = start + mapName.length() + 2;
+
+    return inputString.substr(start, stop - start);
 }
-
-    // int i { start + mapName.length() + 2};
-    // std::cout << "i value: " << i << "\n";
-    // char lastChar {};
-    // char firstChar{} 
-    // while (!stop) 
-    // {
-
-    // }
-
-// std::unordered_map<int, int> mapSourceToDestination(std::string mapString, std::unordered_map<int, int> map)
-// {
-//     splitString(mapString, " ")
-    
-// }
 
 
 int main() 
@@ -69,10 +56,12 @@ int main()
 
         for (const string seed : seeds)
         {
-            std::cout << seed << " ";
+            // std::cout << seed << " ";
         }
 
-        std::cout << seeds.size() << "\n";
+        string seedToSoil { extractStringMap(fileString, "humidity-to-location map") };
+
+        std::cout << seedToSoil << "\n";
 
         file.close();
     } 

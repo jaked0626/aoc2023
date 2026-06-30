@@ -1,7 +1,7 @@
-/* AOC 2023 DAY 5 TASK 1
+/* AOC 2023 DAY 5 TASK 2
 
-Had to use the long type! first timer here. Glad I didnt have to implement 
-my own struct and operator to handle the comparison logic, for now... 
+Ok, it's getting a little tricky... can't be iterating through every seed. 
+
 
 Author: Jake Underland
 */
@@ -11,6 +11,8 @@ Author: Jake Underland
 #include <string>
 #include <vector>
 #include "utils.h"
+
+
 
 std::vector<long> extractSeeds(const std::string inputString)
 {
@@ -53,35 +55,75 @@ std::string extractMapString(std::string inputString, std::string mapName)
     return mapString;
 }
 
-long translate(long source, long range, std::string mapString)
+
+/**
+ * translate takes the minimum seed, the range for the seed,
+ *  and puts them through a map, returning a list of pairs of minimum destinations
+ * and the range for each destination. 
+*/
+std::vector<long> translateMap(long source, long range, std::string mapString)
 {
     long destination { source };
     using std::vector;
     using std::string;
+    vector<long> translated { source, range };
     vector<string> lines {};
 
     lines = splitString(mapString, '\n');
     for (const string& line : lines)
     {
-        vector<string> temp { splitString(line, ' ') };
-        long destinationLb { std::stol(temp[0]) };
-        long sourceLb { std::stol(temp[1]) };
-        long range { std::stol(temp[2]) };
+        translated = translateLine(translated, line);
+    }
+    // std::cout << destination << "\n";
+    return translated;
+}
 
-        if (source < sourceLb || source > sourceLb + range - 1)
+/**
+ * Takes a list of sources and ranges, puts them each through a map line and 
+ * produces a vector of destinations and their ranges. 
+*/
+std::vector<long> translateLine(std::vector<long> inputList, std::string line)
+{
+    using std::vector;
+    using std::string;
+
+    vector<long> destinationList{ };
+    vector<string> temp { splitString(line, ' ') };
+    long destinationLb { std::stol(temp[0]) };
+    long sourceLb { std::stol(temp[1]) };
+    long mapRange { std::stol(temp[2]) };
+
+    for (size_t i = 0; i < inputList.size(); i += 2)
+    {
+        long input { inputList[i] };
+        long inputRange { inputList[i + 1]};
+
+        // logic to extract overlap, translate, and append subsets to destinationList 
+        if (input < sourceLb)
         {
-            continue;
+            destinationList.push_back(input);
+            destinationList.push_back(minLong(sourceLb - 1, input + inputRange)); // range! check for range 
         }
+        if (input + mapRange >= sourceLb && input + mapRange <= sourceLb + mapRange)
+        {
+            destinationList.push_back(maxLong(sourceLb, input));
+            destinationList.push_back(minLong(input + inputRange, sourceLb + mapRange));
+        }
+        minLong(input, sourceLb);
+        maxLong(input + inputRange, sourceLb + mapRange);
+
+        // if (source < sourceLb || source > sourceLb + range - 1)
+        // {
+        //     continue;
+        // }
         // std::cout << "source: " << source << ", sourceLb: " << sourceLb <<", destinationLb: " << destinationLb << ", range: " << range;
-        destination = destinationLb + source - sourceLb;
+        // destination = destinationLb + source - sourceLb;
         // std::cout << ", destination: " << destination <<" \n";
         break;
     }
-    // std::cout << destination << "\n";
-    return destination;
 }
 
-void task1(std::string inputString)
+void task2(std::string inputString)
 {
     using std::string;
     using std::vector;
@@ -143,7 +185,7 @@ int main()
     if (file.is_open()) 
     {
         string fileString { readFileIntoString(file) };
-        task1(fileString);
+        task2(fileString);
         file.close();
     } 
     else 

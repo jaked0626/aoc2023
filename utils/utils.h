@@ -10,4 +10,7 @@ void printStringVector(std::vector<std::string>);
 template <typename K, typename V>
 void initializeMapKeyIfEmpty(std::unordered_map<K, V>&, const K&, const V&);
 
+long minLong(long, long);
+long maxLong(long, long);
+
 #endif

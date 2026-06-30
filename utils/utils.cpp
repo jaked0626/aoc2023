@@ -67,3 +67,25 @@ void initializeMapKeyIfEmpty(std::unordered_map<K, V>& myMap, const K& key, cons
 
 template void initializeMapKeyIfEmpty<std::string, int>(std::unordered_map<std::string, int>&, const std::string&, const int&);
 template void initializeMapKeyIfEmpty<int, int>(std::unordered_map<int, int>&, const int&, const int&);
+
+long minLong(long a, long b) 
+{
+    long res {b};
+    if (a < b) 
+    {
+        res = a;
+    }
+
+    return res;
+}
+
+long maxLong(long a, long b) 
+{
+    long res {b};
+    if (a > b) 
+    {
+        res = a;
+    }
+
+    return res;
+}
